@@ -1,12 +1,46 @@
-import './App.css';
+import { useCallback, useEffect, useRef } from 'react';
 import { useWindowsSize } from './hooks/useWindowsSize';
+import './App.css';
 
 function App() {
+  //
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  //
+
   const size = useWindowsSize();
+  const data = {
+    ease: 0.1,
+    curr: 0,
+    prev: 0,
+    rounded: 0,
+  };
+
+  const setBodyHeight = () => {
+    document.body.style.height = `${
+      containerRef.current!.getBoundingClientRect().height
+    }px`;
+  };
+
+  const smoothScroll = useCallback(() => {
+    data.curr = window.scrollY;
+    data.prev += (data.curr - data.prev) * data.ease;
+    data.rounded = Math.round(data.prev * 100) / 100;
+    containerRef.current!.style.transform = `translateY(-${data.rounded}px)`;
+    requestAnimationFrame(() => smoothScroll());
+  }, [data]);
+
+  useEffect(() => {
+    requestAnimationFrame(() => smoothScroll());
+  }, []);
+
+  useEffect(() => {
+    setBodyHeight();
+  }, [size.height]);
 
   return (
     <div>
-      <div className="container">
+      <div className="container" ref={containerRef}>
         <div className="intro">
           <div className="nav">
             <div className="nav--logo">m.</div>
@@ -58,7 +92,7 @@ function App() {
           </figure>
           <div className="wrapper-img">
             <figure className="img-reveal">
-              {/* <img src="https://picsum.photos/200/300" /> */}
+              <img src="https://picsum.photos/200/300" />
             </figure>
           </div>
         </div>
@@ -70,7 +104,7 @@ function App() {
             perspiciatis aut, nemo officia asperiores?
           </h1>
           <figure>
-            <img src="https://picsum.photos/200/300" />
+            <img src="https://fondosmil.com/fondo/17009.jpg" />
           </figure>
         </div>
         <div className="section section--third">
