@@ -1,10 +1,29 @@
 import { useCallback, useEffect, useRef } from 'react';
 import { useWindowsSize } from './hooks/useWindowsSize';
 import './App.css';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/all';
+gsap.registerPlugin(ScrollTrigger);
 
 function App() {
   //
   const containerRef = useRef<HTMLDivElement>(null);
+  const navList = useRef<HTMLUListElement>(null);
+  const navLogo = useRef<HTMLDivElement>(null);
+  const bottomList = useRef<HTMLDivElement>(null);
+
+  const clothing = useRef<HTMLDivElement>(null);
+  const introFig = useRef<HTMLDivElement>(null);
+  const imported = useRef<HTMLDivElement>(null);
+  const accra = useRef<HTMLDivElement>(null);
+  const introBottomText = useRef<HTMLDivElement>(null);
+  const volume = useRef<HTMLDivElement>(null);
+  const author = useRef<HTMLDivElement>(null);
+  const sectionOneImg = useRef<HTMLDivElement>(null);
+  const sectionTwoHeading = useRef<HTMLDivElement>(null);
+  const sectionTwoFig = useRef<HTMLDivElement>(null);
+  const sectionThirdContainer = useRef<HTMLDivElement>(null);
+  const sectionThirdText = useRef<HTMLDivElement>(null);
 
   //
 
@@ -30,21 +49,41 @@ function App() {
     requestAnimationFrame(() => smoothScroll());
   }, [data]);
 
+  const initSrollAnimation = useCallback(() => {
+    const animationObj = {
+      duration: 0.8,
+      y: -80,
+      opacity: 0,
+    };
+
+    gsap.to(clothing.current, {
+      scrollTrigger: {
+        trigger: clothing.current!,
+        start: 'center 30%',
+        scrub: true,
+      },
+      ...animationObj,
+    });
+  }, []);
+
   useEffect(() => {
     requestAnimationFrame(() => smoothScroll());
   }, []);
 
   useEffect(() => {
     setBodyHeight();
-  }, [size.height]);
+    initSrollAnimation();
+  }, [size.height, initSrollAnimation]);
 
   return (
-    <div>
+    <div className="App">
       <div className="container" ref={containerRef}>
         <div className="intro">
           <div className="nav">
-            <div className="nav--logo">m.</div>
-            <ul className="navigation">
+            <div className="nav--logo" ref={navLogo}>
+              m.
+            </div>
+            <ul className="navigation" ref={navList}>
               <li className="navigation__item">
                 <a href="" className="navigation__link">
                   Instagram
@@ -68,22 +107,28 @@ function App() {
             </ul>
           </div>
           <div className="intro-center">
-            <span>Clothing</span>
-            <figure>
+            <span ref={clothing}>Clothing</span>
+            <figure ref={introFig}>
               <img src="https://picsum.photos/200/300" />
             </figure>
-            <span className="top">Imported</span>
-            <div className="text">
+            <span className="top" ref={imported}>
+              Imported
+            </span>
+            <div className="text" ref={accra}>
               in Accra <span>0'03'439'02</span>
             </div>
           </div>
 
-          <div className="intro-bottom">
-            <div className="intro-bottom-list">Vomule 02</div>
-            <div className="intro-bottom-list">
+          <div className="intro-bottom" ref={bottomList}>
+            <div className="intro-bottom-list" ref={volume}>
+              Vomule 02
+            </div>
+            <div className="intro-bottom-list" ref={introBottomText}>
               Lorem, ipsum dolor sit amet consectetur adipisicing elit.
             </div>
-            <div className="intro-bottom-list">By Lorem Ipsum</div>
+            <div className="intro-bottom-list" ref={author}>
+              By Lorem Ipsum
+            </div>
           </div>
         </div>
         <div className="section section--one">
@@ -91,24 +136,24 @@ function App() {
             <img src="https://images.pexels.com/photos/1525041/pexels-photo-1525041.jpeg" />
           </figure>
           <div className="wrapper-img">
-            <figure className="img-reveal">
+            <figure className="img-reveal" ref={sectionOneImg}>
               <img src="https://picsum.photos/200/300" />
             </figure>
           </div>
         </div>
         <div className="section section--tow">
-          <h1>
+          <h1 ref={sectionTwoHeading}>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut numquam
             eum accusantium? Dolor officiis beatae dolorem expedita eligendi
             quidem commodi fugit impedit accusamus consectetur, quos
             perspiciatis aut, nemo officia asperiores?
           </h1>
-          <figure>
+          <figure ref={sectionTwoFig}>
             <img src="https://fondosmil.com/fondo/17009.jpg" />
           </figure>
         </div>
         <div className="section section--third">
-          <h1>
+          <h1 ref={sectionThirdText}>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore,
             iste quisquam. Perferendis assumenda aliquam ratione incidunt
             tempora eaque obcaecati ducimus illo nostrum reiciendis quas, fuga
