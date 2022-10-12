@@ -64,6 +64,106 @@ function App() {
       },
       ...animationObj,
     });
+
+    gsap.to(imported.current, {
+      scrollTrigger: {
+        trigger: imported.current!,
+        start: 'center 13%',
+        scrub: true,
+      },
+      ...animationObj,
+    });
+
+    gsap.to(accra.current, {
+      scrollTrigger: {
+        trigger: accra.current!,
+        start: 'center 30%',
+        scrub: true,
+      },
+      ...animationObj,
+    });
+
+    gsap.to(introBottomText.current, {
+      scrollTrigger: {
+        trigger: introBottomText.current!,
+        start: 'center 60%',
+        scrub: true,
+      },
+      y: -90,
+      duration: 0.8,
+    });
+
+    gsap.to(volume.current, {
+      scrollTrigger: {
+        trigger: volume.current!,
+        start: 'center 60%',
+        scrub: true,
+      },
+      autoAlpha: 0,
+      duration: 0.1,
+    });
+
+    gsap.to(author.current, {
+      scrollTrigger: {
+        trigger: author.current!,
+        start: 'center 60%',
+        scrub: true,
+      },
+      autoAlpha: 0,
+      duration: 0.1,
+    });
+
+    gsap.to(sectionOneImg.current, {
+      scrollTrigger: {
+        trigger: sectionOneImg.current!,
+        start: 'top 100%',
+        scrub: true,
+      },
+      y: -300,
+      filter: 'contrast(1)',
+      duration: 0.8,
+    });
+
+    // toogle classes
+
+    gsap.to(sectionTwoHeading.current, {
+      scrollTrigger: {
+        trigger: sectionTwoHeading.current!,
+        start: 'center 100%',
+        scrub: true,
+        toggleClass: 'reveal',
+      },
+    });
+
+    gsap.to(sectionTwoFig.current, {
+      scrollTrigger: {
+        trigger: sectionTwoFig.current!,
+        start: 'center 100%',
+        scrub: true,
+        toggleClass: 'reveal',
+      },
+    });
+
+    gsap.to(sectionTwoFig.current, {
+      scrollTrigger: {
+        trigger: sectionThirdContainer.current!,
+        start: '30% 100%',
+        scrub: true,
+        toggleClass: 'reveal',
+      },
+      y: 600,
+      height: '300px',
+    });
+
+    gsap.to(sectionThirdText.current, {
+      scrollTrigger: {
+        trigger: sectionThirdContainer.current!,
+        start: '0% 100%',
+        scrub: true,
+      },
+      y: -100,
+      autoAlpha: 1,
+    });
   }, []);
 
   useEffect(() => {
@@ -141,8 +241,8 @@ function App() {
             </figure>
           </div>
         </div>
-        <div className="section section--tow">
-          <h1 ref={sectionTwoHeading}>
+        <div className="section section--two">
+          <h1 className="reveal" ref={sectionTwoHeading}>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut numquam
             eum accusantium? Dolor officiis beatae dolorem expedita eligendi
             quidem commodi fugit impedit accusamus consectetur, quos
@@ -152,7 +252,7 @@ function App() {
             <img src="https://fondosmil.com/fondo/17009.jpg" />
           </figure>
         </div>
-        <div className="section section--third">
+        <div className="section section--third" ref={sectionThirdContainer}>
           <h1 ref={sectionThirdText}>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore,
             iste quisquam. Perferendis assumenda aliquam ratione incidunt
